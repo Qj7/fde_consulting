@@ -1,15 +1,14 @@
 import { useState, type FormEvent } from "react"
-import { Globe, Mail, Phone, Send } from "lucide-react"
+import { Mail, Phone, Send } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 
 const DATA = [
-  { icon: Phone, info: "+38 (044) 123 45 67" },
-  { icon: Mail, info: "hello@fde.consulting" },
+  { icon: Phone, info: "+38 (044) 123 45 67", href: "tel:+380441234567" },
+  { icon: Mail, info: "hello@fde.consulting", href: "mailto:hello@fde.consulting" },
   { icon: Send, info: "Відповідаємо протягом 1 робочого дня" },
 ]
 
@@ -24,34 +23,34 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="bg-surface py-20">
-      <div className="container mx-auto px-4">
-        <div className="mb-16 text-center">
-          <h2 className="text-3xl font-bold md:text-4xl">Звʼяжіться з нами</h2>
-          <p className="text-muted-foreground mx-auto mt-4 max-w-lg text-lg">
+    <section id="contact" className="bg-white py-20 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto mb-12 max-w-2xl text-center">
+          <p className="text-primary mb-3 text-sm font-bold tracking-[0.12em] uppercase">
+            Контакти
+          </p>
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl">
+            Звʼяжіться з нами
+          </h2>
+          <p className="text-lg leading-relaxed text-muted-foreground">
             Залиште запит — запропонуємо формат консультації під ваш бізнес.
           </p>
         </div>
-        <Card className="mx-auto grid max-w-5xl grid-cols-1 gap-10 rounded-2xl p-8 shadow-xl lg:grid-cols-2 lg:p-10">
-          <form onSubmit={onSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
+
+        <div className="mx-auto grid max-w-5xl grid-cols-1 overflow-hidden rounded-2xl border border-border lg:grid-cols-[1.15fr_0.85fr]">
+          <form onSubmit={onSubmit} className="space-y-5 bg-white p-7 sm:p-10">
+            <div className="grid grid-cols-1 gap-x-4 gap-y-5 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="first-name" className="text-base">
-                  Імʼя
-                </Label>
+                <Label htmlFor="first-name">Імʼя</Label>
                 <Input id="first-name" placeholder="Олена" className="h-11" required />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="last-name" className="text-base">
-                  Прізвище
-                </Label>
+                <Label htmlFor="last-name">Прізвище</Label>
                 <Input id="last-name" placeholder="Кравченко" className="h-11" />
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-base">
-                Email або телефон
-              </Label>
+              <Label htmlFor="email">Email або телефон</Label>
               <Input
                 id="email"
                 type="text"
@@ -61,9 +60,7 @@ export function ContactSection() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="message" className="text-base">
-                Коротко про запит
-              </Label>
+              <Label htmlFor="message">Коротко про запит</Label>
               <Textarea
                 id="message"
                 placeholder="Що хочете покращити у бізнесі?"
@@ -75,44 +72,40 @@ export function ContactSection() {
               {sent ? "Заявку надіслано" : "Надіслати заявку"}
             </Button>
           </form>
-          <div className="flex flex-col justify-between rounded-xl bg-gradient-to-br from-emerald-900 to-emerald-950 p-8 lg:p-12">
-            <div>
-              <h3 className="mb-4 text-2xl font-bold text-white">
-                Контактна інформація
-              </h3>
-              <p className="mb-12 max-w-lg text-emerald-100/80">
-                Заповніть форму — команда FDE Consulting відповість протягом
-                одного робочого дня.
-              </p>
-              <div className="space-y-6">
-                {DATA.map(({ icon: Icon, info }) => (
-                  <div key={info} className="flex items-center gap-4">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10">
-                      <Icon className="h-5 w-5 text-white" />
+
+          <aside className="border-t border-border bg-surface p-7 sm:p-10 lg:border-t-0 lg:border-l">
+            <h3 className="mb-3 text-xl font-bold">Контактна інформація</h3>
+            <p className="mb-8 leading-relaxed text-muted-foreground">
+              Заповніть форму — команда FDE Consulting відповість протягом
+              одного робочого дня.
+            </p>
+            <div className="space-y-5">
+              {DATA.map(({ icon: Icon, info, href }) => {
+                const content = (
+                  <>
+                    <div className="flex size-10 items-center justify-center rounded-xl bg-white text-primary shadow-sm ring-1 ring-border">
+                      <Icon className="size-4" />
                     </div>
-                    <span className="text-emerald-50">{info}</span>
+                    <span className="font-medium">{info}</span>
+                  </>
+                )
+                return href ? (
+                  <a
+                    key={info}
+                    href={href}
+                    className="flex items-center gap-3 transition-colors hover:text-primary"
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <div key={info} className="flex items-center gap-3">
+                    {content}
                   </div>
-                ))}
-              </div>
+                )
+              })}
             </div>
-            <div className="mt-12 flex items-center gap-4">
-              <a
-                href="#"
-                aria-label="Сайт"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-emerald-100 transition-all hover:bg-white/20 hover:text-white"
-              >
-                <Globe className="h-5 w-5" />
-              </a>
-              <a
-                href="mailto:hello@fde.consulting"
-                aria-label="Email"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-emerald-100 transition-all hover:bg-white/20 hover:text-white"
-              >
-                <Mail className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-        </Card>
+          </aside>
+        </div>
       </div>
     </section>
   )

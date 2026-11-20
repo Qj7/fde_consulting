@@ -1,13 +1,3 @@
-import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-
 const CASES = [
   {
     tag: "Рітейл",
@@ -40,43 +30,46 @@ const CASES = [
 
 export function CasesSection() {
   return (
-    <section id="cases" className="bg-surface py-20">
-      <div className="container mx-auto px-4">
+    <section id="cases" className="bg-white py-20 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="mb-14 max-w-2xl">
-          <Badge variant="outline" className="mb-6 w-max">
+          <p className="text-primary mb-3 text-sm font-bold tracking-[0.12em] uppercase">
             Кейси
-          </Badge>
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">
+          </p>
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl">
             Як бізнеси зростають із FDE Consulting
           </h2>
-          <p className="text-muted-foreground text-lg">
+          <p className="text-lg leading-relaxed text-muted-foreground">
             Реальні результати клієнтів у стратегії, операціях і трансформації.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
           {CASES.map(({ tag, title, text, metrics }) => (
-            <Card key={title} className="h-full shadow-sm">
-              <CardHeader>
-                <Badge className="mb-3 w-max" variant="secondary">
+            <article
+              key={title}
+              className="flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-white transition-shadow hover:shadow-[0_18px_40px_-28px_rgba(18,24,22,0.28)]"
+            >
+              <div className="flex flex-1 flex-col p-7">
+                <span className="mb-4 w-fit rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-foreground">
                   {tag}
-                </Badge>
-                <CardTitle className="text-xl leading-snug">{title}</CardTitle>
-                <CardDescription className="text-base leading-relaxed">
+                </span>
+                <h3 className="mb-3 text-xl font-bold leading-snug">{title}</h3>
+                <p className="mb-6 flex-1 leading-relaxed text-muted-foreground">
                   {text}
-                </CardDescription>
-              </CardHeader>
-              <CardContent />
-              <CardFooter className="bg-muted/40 mt-auto grid grid-cols-2 gap-4 border-t px-6 pt-4">
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-4 border-t border-border bg-surface/70 px-7 py-5">
                 {metrics.map((metric) => (
                   <div key={metric.label}>
-                    <p className="text-primary text-xl font-bold">{metric.value}</p>
-                    <p className="text-muted-foreground text-xs font-medium tracking-wide uppercase">
+                    <p className="text-primary text-xl font-extrabold">{metric.value}</p>
+                    <p className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                       {metric.label}
                     </p>
                   </div>
                 ))}
-              </CardFooter>
-            </Card>
+              </div>
+            </article>
           ))}
         </div>
       </div>

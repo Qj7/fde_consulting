@@ -1,3 +1,6 @@
+import { useState } from "react"
+import { ChevronDown } from "lucide-react"
+
 const FAQS = [
   {
     q: "З чого починається співпраця?",
@@ -18,24 +21,55 @@ const FAQS = [
 ]
 
 export function FaqSection() {
+  const [open, setOpen] = useState(0)
+
   return (
-    <section className="px-6 py-20">
-      <div className="mx-auto max-w-3xl">
-        <div className="mb-16 text-center">
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">
+    <section className="border-y border-border bg-surface py-20 sm:py-24">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6">
+        <div className="mb-12 text-center">
+          <p className="text-primary mb-3 text-sm font-bold tracking-[0.12em] uppercase">
+            FAQ
+          </p>
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl">
             Часті запитання
           </h2>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
-            Короткі відповіді про формат роботи, терміни та підхід FDE
-            Consulting.
+          <p className="text-lg leading-relaxed text-muted-foreground">
+            Короткі відповіді про формат роботи, терміни та підхід FDE Consulting.
           </p>
         </div>
-        {FAQS.map(({ q, a }) => (
-          <div key={q} className="mb-2">
-            <h3 className="border-b py-6 text-lg font-semibold">{q}</h3>
-            <p className="text-muted-foreground py-6 leading-relaxed">{a}</p>
-          </div>
-        ))}
+
+        <div className="space-y-3">
+          {FAQS.map(({ q, a }, index) => {
+            const isOpen = open === index
+            return (
+              <div
+                key={q}
+                className="overflow-hidden rounded-2xl border border-border bg-white"
+              >
+                <button
+                  type="button"
+                  className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left"
+                  onClick={() => setOpen(isOpen ? -1 : index)}
+                  aria-expanded={isOpen}
+                >
+                  <span className="text-base font-bold sm:text-lg">{q}</span>
+                  <ChevronDown
+                    className={`text-primary size-5 shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                <div
+                  className={`grid transition-[grid-template-rows] duration-300 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="px-5 pb-5 leading-relaxed text-muted-foreground">
+                      {a}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </section>
   )

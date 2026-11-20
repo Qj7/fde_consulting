@@ -1,8 +1,4 @@
-import { Sparkles } from "lucide-react"
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
 
 const TESTIMONIALS = [
   {
@@ -33,26 +29,32 @@ const TESTIMONIALS = [
 
 export function TestimonialsSection() {
   return (
-    <section className="py-20">
-      <div className="container mx-auto px-4">
-        <div className="mb-16 text-center">
-          <Badge variant="outline" className="mx-auto mb-8 w-max">
-            <Sparkles className="mr-2 h-4 w-4" />
+    <section className="border-y border-border bg-surface py-20 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto mb-14 max-w-2xl text-center">
+          <p className="text-primary mb-3 text-sm font-bold tracking-[0.12em] uppercase">
             Відгуки
-          </Badge>
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">
+          </p>
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl">
             Що кажуть клієнти
           </h2>
-          <p className="text-muted-foreground mx-auto max-w-lg text-lg">
+          <p className="text-lg leading-relaxed text-muted-foreground">
             Керівники компаній, з якими ми будуємо стратегію та операційну
             ефективність.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {TESTIMONIALS.map(({ name, image, role, quote }) => (
-            <Card key={name} className="border-0 bg-transparent shadow-none">
-              <CardContent className="p-0 text-center">
-                <Avatar className="mx-auto mb-4 h-20 w-20">
+            <blockquote
+              key={name}
+              className="flex h-full flex-col rounded-2xl border border-border bg-white p-7"
+            >
+              <p className="mb-8 flex-1 text-[1.05rem] leading-relaxed text-foreground/85">
+                &ldquo;{quote}&rdquo;
+              </p>
+              <div className="flex items-center gap-3">
+                <Avatar className="size-11">
                   <AvatarImage src={image} alt={name} />
                   <AvatarFallback>
                     {name
@@ -61,13 +63,12 @@ export function TestimonialsSection() {
                       .join("")}
                   </AvatarFallback>
                 </Avatar>
-                <p className="mb-1 text-lg font-semibold">{name}</p>
-                <p className="text-muted-foreground mb-4 text-sm">{role}</p>
-                <blockquote className="text-muted-foreground mx-auto max-w-lg">
-                  &quot;{quote}&quot;
-                </blockquote>
-              </CardContent>
-            </Card>
+                <div>
+                  <p className="font-bold">{name}</p>
+                  <p className="text-sm text-muted-foreground">{role}</p>
+                </div>
+              </div>
+            </blockquote>
           ))}
         </div>
       </div>

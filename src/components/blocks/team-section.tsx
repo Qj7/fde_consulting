@@ -1,5 +1,3 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-
 const DATA = [
   {
     image:
@@ -23,35 +21,36 @@ const DATA = [
 
 export function TeamSection() {
   return (
-    <section className="bg-surface py-20">
-      <div className="container mx-auto px-4">
-        <div className="mb-16 text-center">
-          <p className="text-primary block text-sm font-semibold">Команда</p>
-          <h2 className="my-4 text-3xl font-bold md:text-4xl">
+    <section className="bg-white py-20 sm:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        <div className="mx-auto mb-14 max-w-2xl text-center">
+          <p className="text-primary mb-3 text-sm font-bold tracking-[0.12em] uppercase">
+            Команда
+          </p>
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight md:text-4xl">
             Експерти поруч із вами
           </h2>
-          <p className="text-muted-foreground mx-auto max-w-3xl text-lg text-balance">
+          <p className="text-lg leading-relaxed text-muted-foreground text-balance">
             Партнери з досвідом у стратегії, фінансах і операційному
             менеджменті для українського та європейського бізнесу.
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-3">
+
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {DATA.map(({ image, name, position }) => (
-            <Card key={name} className="border-0 bg-transparent shadow-none">
-              <CardHeader className="p-0">
+            <article key={name} className="text-center">
+              <div className="mb-5 overflow-hidden rounded-2xl border border-border">
                 <img
                   src={image}
                   alt={name}
-                  className="mx-auto h-80 w-full max-w-md rounded-xl object-cover object-top sm:h-96"
+                  className="mx-auto h-80 w-full object-cover object-top transition-transform duration-500 hover:scale-[1.03] sm:h-96"
                 />
-              </CardHeader>
-              <CardContent className="mt-4 text-center">
-                <p className="mb-2 text-lg font-semibold">{name}</p>
-                <p className="text-muted-foreground text-sm font-semibold uppercase">
-                  {position}
-                </p>
-              </CardContent>
-            </Card>
+              </div>
+              <p className="mb-1 text-lg font-bold">{name}</p>
+              <p className="text-sm font-semibold tracking-wide text-muted-foreground uppercase">
+                {position}
+              </p>
+            </article>
           ))}
         </div>
       </div>
